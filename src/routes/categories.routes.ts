@@ -1,23 +1,26 @@
-import { Router } from "express";
-import { CategoriesRepository } from "../repositories/CategoriesRepository";
-import { CreateCategoryService } from "../services/create-category-service";
+import { Router } from 'express';
+import { v4 as uuidV4 } from 'uuid';
+import { Category } from '../models/Category';
 
 const categoriesRoutes = Router();
-const categoriesRepository = new CategoriesRepository();
 
-categoriesRoutes.post("/", (req, res) => {
+const categories = [];
+
+categoriesRoutes.post('/', (req, res) => {
   const { name, description } = req.body;
 
-  const createCategoryService = new CreateCategoryService(categoriesRepository);
-  createCategoryService.execute({ name, description });
+  const category = new Category();
 
-  return res.status(201).send("Create a new category");
-});
+  // Object assing voce passa o objeto alvo e as props que ele vai receber
+  Object.assign(category, {
+    name, 
+    description, 
+    created_at: new Date()
+  });
 
-categoriesRoutes.get("/", (req, res) => {
-  const allCategories = categoriesRepository.list();
+  categories.push(category)
 
-  return res.status(200).json(allCategories);
-});
+  res.status(200).json({categories})
+})
 
 export { categoriesRoutes };
