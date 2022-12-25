@@ -14,7 +14,7 @@ class CategoryRepository {
 
   create({ name, description }: ICreateCategoryDTO): void {
     const category = new Category(); // Instance new category
-    
+
     // Pass properties
     Object.assign(category, {
       name,
@@ -28,6 +28,11 @@ class CategoryRepository {
 
   list(): Category[] {
     return this.categories;
+  }
+
+  findByName(name: string): Category {
+    const category = this.categories.find(category => category.name === name);
+    return category;
   }
 }
 
