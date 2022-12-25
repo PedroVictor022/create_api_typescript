@@ -13,12 +13,21 @@ class CategoryRepository {
   }
 
   create({ name, description }: ICreateCategoryDTO): void {
-    const category = new Category();
+    const category = new Category(); // Instance new category
+    
+    // Pass properties
     Object.assign(category, {
       name,
       description,
       created_at: new Date(),
     });
+
+    // Add new category in repository
+    this.categories.push(category);
+  }
+
+  list(): Category[] {
+    return this.categories;
   }
 }
 
