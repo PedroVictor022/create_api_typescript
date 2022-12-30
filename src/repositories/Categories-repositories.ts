@@ -1,5 +1,4 @@
 import { Category } from "../models/Category";
-
 interface ICreateCategoryDTO {
   name: string;
   description: string;
@@ -31,7 +30,7 @@ class CategoryRepository {
   }
 
   findByName(name: string): Category {
-    const category = this.categories.find(category => category.name === name);
+    const category = this.categories.find((category) => category.name === name);
     return category;
   }
 }
